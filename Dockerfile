@@ -12,8 +12,8 @@ RUN apt-get update && \
 	    apt-get install docker-ce-cli && \
 		rm -rf /var/lib/apt/lists/*
 
-RUN curl -L https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
+RUN curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
 
-RUN groupadd -g 999 docker && usermod -u 1112 jenkins && usermod -a -G docker jenkins
+RUN groupadd -g 999 docker && usermod -u 11011 jenkins && usermod -a -G docker jenkins
 
 USER jenkins
