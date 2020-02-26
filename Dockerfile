@@ -1,11 +1,11 @@
-FROM jenkins/jnlp-slave:3.29-1
+FROM jenkins/jnlp-slave:4.0.1-1
 
 ENV DOCKER_BUILDKIT=1
 
 USER root
 
-ENV DOCKER_VERSION=19.03.2
-ENV DOCKER_COMPOSE_VERSION=1.24.1
+ENV DOCKER_VERSION=19.03.5
+ENV DOCKER_COMPOSE_VERSION=1.25.4
 
 RUN apt-get update && \
 	apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common build-essential bsdmainutils && \
