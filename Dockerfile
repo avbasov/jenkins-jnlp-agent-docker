@@ -13,7 +13,7 @@ RUN apt-get update && \
 	apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common build-essential bsdmainutils && \
 	apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
 		libreadline-dev libsqlite3-dev wget llvm libncurses5-dev libncursesw5-dev \
-		xz-utils tk-dev libffi-dev liblzma-dev python-openssl git && \
+		xz-utils tk-dev libffi-dev liblzma-dev python-openssl && \
 	# install docker
 	curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
 	add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
@@ -25,11 +25,12 @@ RUN apt-get update && \
 	# install python
 	git clone --single-branch --branch master https://github.com/pyenv/pyenv.git /.pyenv && \
 	pyenv install 3.8.2 && \
+	ln -s /.pyenv/versions/3.8.2/bin/python3.8 /usr/bin/python3.8 && \
 	chown -R jenkins:jenkins /.pyenv && \
 	# clean up
 	apt-get remove -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
 		libreadline-dev libsqlite3-dev wget llvm libncurses5-dev libncursesw5-dev \
-		xz-utils tk-dev libffi-dev liblzma-dev python-openssl git && \
+		xz-utils tk-dev libffi-dev liblzma-dev python-openssl && \
 	apt-get autoremove -y && \
 	apt-get clean -y && \
 	rm -rf /var/lib/apt/lists/*
