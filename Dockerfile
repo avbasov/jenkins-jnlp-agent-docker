@@ -30,6 +30,7 @@ RUN apt-get update && \
 	git clone --single-branch --branch master https://github.com/pyenv/pyenv.git /.pyenv && \
 	pyenv install 3.8.2 && \
 	ln -s /.pyenv/versions/3.8.2/bin/python3.8 /usr/bin/python3.8 && \
+	ln -s /.pyenv/versions/3.8.2/lib/python3.8/site-packages/pip3.8 /usr/bin/pip3.8 && \
 	chown -R jenkins:jenkins /.pyenv && \
 	# clean up
 	apt-get remove -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
