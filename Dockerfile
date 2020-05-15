@@ -1,13 +1,17 @@
-FROM jenkins/jnlp-slave:4.0.1-1
+FROM jenkins/jnlp-slave:4.3-4
 
 ENV DOCKER_BUILDKIT=1
 
 USER root
 
-ENV DOCKER_VERSION=19.03.5
-ENV DOCKER_COMPOSE_VERSION=1.25.4
+ENV DOCKER_VERSION=19.03.8
+ENV DOCKER_COMPOSE_VERSION=1.25.5
+ENV TINI_VERSION v0.19.0
 ENV PYENV_ROOT=/.pyenv
 ENV PATH=$PYENV_ROOT/bin:$PATH
+
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
 
 RUN apt-get update && \
 	apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common build-essential bsdmainutils && \
@@ -40,3 +44,5 @@ RUN cp ~/.bashrc ~/.bashrc_copy && \
 	echo 'eval "$(pyenv init -)"' > ~/.bashrc && \
 	cat ~/.bashrc_copy >> ~/.bashrc
 ENV PYENV_VERSION=3.8.2
+
+ENTRYPOINT ["/tini", "--", "jenkins-agent"]
