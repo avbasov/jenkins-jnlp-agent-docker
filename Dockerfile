@@ -5,7 +5,7 @@ ENV DOCKER_BUILDKIT=1
 USER root
 
 ENV DOCKER_VERSION=19.03.8
-ENV DOCKER_COMPOSE_VERSION=1.25.5
+ENV DOCKER_COMPOSE_VERSION=1.26.0
 ENV TINI_VERSION v0.19.0
 ENV PYENV_ROOT=/.pyenv
 ENV PATH=$PYENV_ROOT/bin:$PATH
@@ -33,7 +33,7 @@ RUN apt-get update && \
 	ln -s /.pyenv/shims/pip /usr/bin/pip3.8 && \
 	chown -R jenkins:jenkins /.pyenv && \
 	# clean up
-	apt-get remove -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+	apt-get remove -y build-essential libssl-dev zlib1g-dev libbz2-dev \
 		libreadline-dev libsqlite3-dev wget llvm libncurses5-dev libncursesw5-dev \
 		xz-utils tk-dev libffi-dev liblzma-dev python-openssl && \
 	apt-get autoremove -y && \
