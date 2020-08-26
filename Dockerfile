@@ -1,11 +1,11 @@
-FROM jenkins/jnlp-slave:4.3-4
+FROM jenkins/jnlp-slave:4.3-9
 
 ENV DOCKER_BUILDKIT=1
 
 USER root
 
-ENV DOCKER_VERSION=19.03.8
-ENV DOCKER_COMPOSE_VERSION=1.26.0
+ENV DOCKER_VERSION=19.03.12
+ENV DOCKER_COMPOSE_VERSION=1.26.2
 ENV TINI_VERSION v0.19.0
 ENV PYENV_ROOT=/.pyenv
 ENV PATH=$PYENV_ROOT/bin:$PATH
@@ -28,8 +28,8 @@ RUN apt-get update && \
 	groupadd -g 999 docker && usermod -u 11011 jenkins && usermod -a -G docker jenkins && \
 	# install python
 	git clone --single-branch --branch master https://github.com/pyenv/pyenv.git /.pyenv && \
-	pyenv install 3.8.2 && \
-	ln -s /.pyenv/versions/3.8.2/bin/python3.8 /usr/bin/python3.8 && \
+	pyenv install 3.8.5 && \
+	ln -s /.pyenv/versions/3.8.5/bin/python3.8 /usr/bin/python3.8 && \
 	ln -s /.pyenv/shims/pip /usr/bin/pip3.8 && \
 	chown -R jenkins:jenkins /.pyenv && \
 	# clean up
@@ -44,6 +44,6 @@ USER jenkins
 RUN cp ~/.bashrc ~/.bashrc_copy && \
 	echo 'eval "$(pyenv init -)"' > ~/.bashrc && \
 	cat ~/.bashrc_copy >> ~/.bashrc
-ENV PYENV_VERSION=3.8.2
+ENV PYENV_VERSION=3.8.5
 
 ENTRYPOINT ["/tini", "--", "jenkins-agent"]
